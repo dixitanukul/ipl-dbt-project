@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: public
+    schema: PUBLIC
+    tables:
+      - name: SRC_IPL_MATCH_DATA

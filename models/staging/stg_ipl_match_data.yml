@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: stg_ipl_match_data
+    description: >
+      Cleaned and standardized IPL match data.
+    columns:
+      - name: MATCH_ID
+        description: Unique match identifier.
+        tests:
+          - not_null
+          - unique
+      - name: MATCH_DATE
+        description: Date of the match.
+        tests:
+          - not_null
+      - name: CITY
+        description: City where match played.
+      - name: SEASON
+        description: IPL season.
+      - name: VENUE
+        description: Match venue.
+      - name: MATCH_TYPE
+        description: Type of match.
+      - name: MATCH_RESULT
+        description: Match result.
+      - name: WINNER
+        description: Winning team.
+      - name: BY_WICKETS
+        description: Win margin (wickets).
+      - name: BY_RUNS
+        description: Win margin (runs).
+      - name: PLAYER_OF_MATCH
+        description: Player of the match.
+      - name: TEAM_1
+        description: First team.
+      - name: TEAM_2
+        description: Second team.
+      - name: TOSS_DECISION
+        description: Toss decision.
+      - name: TOSS_WINNER
+        description: Toss winner.
+      - name: UMPIRE_1
+        description: First umpire.
+      - name: UMPIRE_2
+        description: Second umpire.

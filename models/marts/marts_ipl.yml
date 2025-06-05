@@ -1,0 +1,105 @@
+version: 2
+
+models:
+  - name: fact_match
+    description: >
+      Fact table containing IPL match-level information, enhanced with analytics-ready calculated fields.
+    columns:
+      - name: MATCH_ID
+        description: Unique match identifier.
+        tests: [not_null, unique]
+      - name: MATCH_DATE
+        description: Date of the match.
+        tests: [not_null]
+      - name: SEASON_ID
+        description: FK to dim_season (IPL season).
+        tests: [not_null]
+      - name: TEAM_1_ID
+        description: FK to dim_team (First team in the match).
+        tests: [not_null]
+      - name: TEAM_2_ID
+        description: FK to dim_team (Second team in the match).
+        tests: [not_null]
+      - name: VENUE_ID
+        description: FK to dim_venue (Venue of the match).
+        tests: [not_null]
+      - name: MATCH_TYPE
+        description: Type of match (e.g. league, qualifier, final).
+      - name: MATCH_RESULT
+        description: Raw result text for the match.
+      - name: WINNER_ID
+        description: FK to dim_team (Winning team).
+      - name: BY_WICKETS
+        description: Number of wickets by which the team won.
+      - name: BY_RUNS
+        description: Number of runs by which the team won.
+      - name: PLAYER_OF_MATCH_ID
+        description: FK to dim_player (Player adjudged as the Player of the Match).
+      - name: TOSS_DECISION
+        description: Decision taken by the team that won the toss.
+      - name: TOSS_WINNER_ID
+        description: FK to dim_team (Team that won the toss).
+      - name: UMPIRE_1
+        description: First umpire for the match.
+      - name: UMPIRE_2
+        description: Second umpire for the match.
+
+      # Calculated columns
+      - name: WIN_TYPE
+        description: Whether the match was won by runs, wickets, or other method.
+      - name: WIN_MARGIN_CATEGORY
+        description: Categorization of the victory margin as Dominant, Close, or Normal.
+      - name: WAS_TIED
+        description: 1 if the match was tied, 0 otherwise.
+      - name: WAS_DUCKWORTH_LEWIS
+        description: 1 if the match used the Duckworth-Lewis method, 0 otherwise.
+      - name: DID_TOSS_WINNER_WIN
+        description: 1 if the toss-winning team also won the match, 0 otherwise.
+      - name: NEUTRAL_VENUE
+        description: 1 if the match was played at a neutral venue (no city), 0 otherwise.
+      - name: WIN_MARGIN_DESC
+        description: Human-readable description of the win margin.
+      - name: HAS_PLAYER_OF_MATCH
+        description: 1 if a player of the match was declared, 0 otherwise.
+
+  - name: dim_team
+    description: Unique teams in IPL.
+    columns:
+      - name: TEAM_ID
+        description: Surrogate key for team.
+        tests: [not_null, unique]
+      - name: TEAM_NAME
+        description: Team name.
+        tests: [not_null, unique]
+
+  - name: dim_player
+    description: Unique players (player of match).
+    columns:
+      - name: PLAYER_ID
+        description: Surrogate key for player.
+        tests: [not_null, unique]
+      - name: PLAYER_NAME
+        description: Player name.
+        tests: [not_null, unique]
+
+  - name: dim_venue
+    description: Unique match venues.
+    columns:
+      - name: VENUE_ID
+        description: Surrogate key for venue.
+        tests: [not_null, unique]
+      - name: VENUE_NAME
+        description: Venue name.
+        tests: [not_null, unique]
+      - name: CITY_NAME
+        description: City where the venue is located.
+
+  - name: dim_season
+    description: Unique IPL seasons.
+    columns:
+      - name: SEASON_ID
+        description: Surrogate key for season.
+        tests: [not_null, unique]
+      - name: SEASON_NAME
+        description: Season (year).
+        tests: [not_null, unique]

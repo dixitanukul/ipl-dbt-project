@@ -20,7 +20,7 @@ WITH mapped_matches AS (
 , dim_venue AS (
     SELECT VENUE_NAME, VENUE_ID FROM {{ ref('dim_venue') }}
 )
-SELECT
+SELECT distinct 
     m.MATCH_ID,
     m.MATCH_DATE,
     s.SEASON_ID,
